@@ -203,6 +203,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>elevisor</finalName>
     </build>
 
 </project>
