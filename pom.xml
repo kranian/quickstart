@@ -196,14 +196,14 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/</path>
+                    <path>/elevisor</path>
                     <port>8080</port>
                     <uriEncoding>utf-8</uriEncoding>
                     <warSourceDirectory>${basedir}/target/deploy</warSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>elevisor</finalName>
+        <finalName>ROOT</finalName>
     </build>
 
 </project>
