@@ -1,4 +1,4 @@
-package com.elevisor.testapp.service.remote;
+package kranian.testapp.service.remote;
 
 import org.springframework.util.MultiValueMap;
 

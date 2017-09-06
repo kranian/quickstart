@@ -1,4 +1,4 @@
-package com.elevisor.testapp.service.remote;
+package kranian.testapp.service.remote;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;

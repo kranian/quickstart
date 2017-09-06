@@ -1,4 +1,4 @@
-package com.elevisor.testapp.controller;
+package kranian.testapp.controller;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,18 +10,14 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpSession;
 
-import com.elevisor.testapp.listener.ElevisorSessionListener;
-import com.elevisor.testapp.util.Description;
+import kranian.testapp.util.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;

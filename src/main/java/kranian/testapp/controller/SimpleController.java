@@ -1,14 +1,14 @@
-package com.elevisor.testapp.controller;
+package kranian.testapp.controller;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.elevisor.testapp.listener.ElevisorSessionListener;
+import kranian.testapp.listener.ElevisorSessionListener;
+import kranian.testapp.util.Description;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.elevisor.testapp.util.Description;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

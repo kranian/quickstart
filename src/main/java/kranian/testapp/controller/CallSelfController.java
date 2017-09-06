@@ -1,4 +1,4 @@
-package com.elevisor.testapp.controller;
+package kranian.testapp.controller;
 
 import java.net.InetAddress;
 import java.net.URISyntaxException;
@@ -7,15 +7,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.elevisor.testapp.service.remote.RemoteService;
+import kranian.testapp.service.remote.RemoteService;
+import kranian.testapp.util.Description;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.elevisor.testapp.util.Description;
 
 @Controller
 @RequestMapping("/callSelf")

@@ -1,4 +1,4 @@
-package com.elevisor.testapp.controller;
+package kranian.testapp.controller;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+import kranian.testapp.util.Description;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.elevisor.testapp.util.Description;
 
 @Controller
 public class StressController {

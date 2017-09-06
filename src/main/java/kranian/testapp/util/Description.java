@@ -1,4 +1,4 @@
-package com.elevisor.testapp.util;
+package kranian.testapp.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

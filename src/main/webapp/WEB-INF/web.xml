@@ -24,7 +24,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
-        <listener-class>com.elevisor.testapp.listener.ElevisorSessionListener</listener-class>
+        <listener-class>kranian.testapp.listener.ElevisorSessionListener</listener-class>
     </listener>
     <!-- servlet application context -->
     <servlet>

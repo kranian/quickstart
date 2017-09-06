@@ -1,7 +1,7 @@
-package com.elevisor.testapp.controller;
+package kranian.testapp.controller;
 
-import com.elevisor.testapp.service.remote.RemoteService;
-import com.elevisor.testapp.util.Description;
+import kranian.testapp.service.remote.RemoteService;
+import kranian.testapp.util.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

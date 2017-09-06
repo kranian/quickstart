@@ -9,8 +9,8 @@
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.elevisor.testapp.controller" />
-    <context:component-scan base-package="com.elevisor.testapp.service" />
+    <context:component-scan base-package="kranian.testapp.controller" />
+    <context:component-scan base-package="kranian.testapp.service" />
     
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
