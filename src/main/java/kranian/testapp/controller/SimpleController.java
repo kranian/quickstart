@@ -29,7 +29,29 @@ public class SimpleController {
 
         return map;
     }
+    @RequestMapping("/sleep1")
+    @ResponseBody
+    @Description("Call that takes 1 seconds to complete.")
+    public Map<String, Object> sleep1() throws InterruptedException {
+        Thread.sleep(1000);
 
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", "1s ok");
+
+        return map;
+    }
+
+    @RequestMapping("/sleep100ms")
+    @ResponseBody
+    @Description("Call that takes 1 seconds to complete.")
+    public Map<String, Object> sleep100ms() throws InterruptedException {
+        Thread.sleep(100);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", "100ms ok");
+
+        return map;
+    }
     @RequestMapping("/sleep3")
     @ResponseBody
     @Description("Call that takes 3 seconds to complete.")
@@ -37,7 +59,7 @@ public class SimpleController {
         Thread.sleep(3000);
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("message", "ok");
+        map.put("message", "3s ok");
 
         return map;
     }
@@ -49,7 +71,7 @@ public class SimpleController {
         Thread.sleep(5000);
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("message", "ok");
+        map.put("message", "5s ok");
 
         return map;
     }
@@ -61,7 +83,7 @@ public class SimpleController {
         Thread.sleep(7000);
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("message", "ok");
+        map.put("message", "7s ok");
 
         return map;
     }

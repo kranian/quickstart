@@ -10,9 +10,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 import kranian.testapp.util.Description;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -29,7 +32,12 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Controller(value = "apisController")
 public class ApisController {
 
+
+    @Autowired
+    DataSource dataSource;
+
     private final RequestMappingHandlerMapping handlerMapping;
+
 
     private final Map<String, SortedSet<RequestMappedUri>> apiMappings = new TreeMap<String, SortedSet<RequestMappedUri>>(String.CASE_INSENSITIVE_ORDER);
 
@@ -38,8 +46,15 @@ public class ApisController {
         this.handlerMapping = handlerMapping;
     }
 
+    @Bean
+    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+
     @PostConstruct
     private void initApiMappings() {
+        System.out.println("Start ..############################################################################");
         Map<RequestMappingInfo, HandlerMethod> requestMappedHandlers = this.handlerMapping.getHandlerMethods();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> requestMappedHandlerEntry : requestMappedHandlers.entrySet()) {
             RequestMappingInfo requestMappingInfo = requestMappedHandlerEntry.getKey();
@@ -59,6 +74,7 @@ public class ApisController {
             }
             alreadyMappedRequests.addAll(createRequestMappedApis(handlerMethod, mappedRequests));
         }
+        System.out.println("End ..############################################################################");
     }
     
     private Set<RequestMappedUri> createRequestMappedApis(HandlerMethod handlerMethod, Set<String> mappedUris) {
@@ -76,7 +92,6 @@ public class ApisController {
     @RequestMapping(value = { "/index.html", "/apis" }, method = RequestMethod.GET)
     public String apis(Model model) {
         model.addAttribute("apiMappings", this.apiMappings);
-
         return "apis";
     }
 
@@ -85,7 +100,6 @@ public class ApisController {
         private final String mappedUri;
         private final String description;
 
-        private RequestMappedUri(String mappedUri, Description description) {
         private RequestMappedUri(String mappedUri, Description description) {
             if (mappedUri == null) {
                 throw new IllegalArgumentException("mappedUri must not be null");
