@@ -48,6 +48,7 @@ public class ApisController {
 
     @Bean
     public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+
         return new NamedParameterJdbcTemplate(dataSource);
     }
 
