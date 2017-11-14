@@ -29,7 +29,7 @@ public class JDBCSelfController {
 
     @RequestMapping("/simpleDriver")
     @ResponseBody
-    @Description("Call that takes simpleDriver to complete")
+    @Description("Call that takes DriverManager to complete")
     public Map<String, Object> simpleDataSource() throws InterruptedException {
         Map<String,Object> result = new TreeMap<>();
         try {
@@ -55,7 +55,7 @@ public class JDBCSelfController {
     }
     @RequestMapping("/simpleSelect")
     @ResponseBody
-    @Description("Call that takes select account query to complete")
+    @Description("Call that takes jdbcTemplate select account query to complete")
     public Map<String, Object> simpleSelect() throws InterruptedException {
         Map<String, Object> map = new HashMap<String, Object>();
         String sql = "SELECT * FROM randomTable";
@@ -67,7 +67,7 @@ public class JDBCSelfController {
 
     @RequestMapping("/simpleInsert")
     @ResponseBody
-    @Description("Call that takes simpleInsert to complete")
+    @Description("Call that takes jdbcTemplate simpleInsert to complete")
     public Map<String, Object> simpleInsert() throws InterruptedException {
 
         Map<String, Object> map = new TreeMap<>();
