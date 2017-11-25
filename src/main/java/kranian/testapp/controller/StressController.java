@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import kranian.testapp.util.Description;
+import kranian.testapp.util.StressTestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,5 +108,23 @@ public class StressController {
         }
 
         System.gc();
-    }    
+    }
+
+    @RequestMapping("/OccurOOME")
+    @ResponseBody
+    @Description("Call that consumes a large amount of memory that will most likely trigger multiple garbage collections.")
+    public Map<String, Object> consumeOccurOOME() throws InterruptedException {
+        occurOOME();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("messageOccurOOME", "ok");
+        return map;
+    }
+
+    private void occurOOME() {
+        List al=new ArrayList();
+        while(true){
+            for(String val : StressTestUtil.infiniteStream())
+                al.add(val);
+        }
+    }
 }

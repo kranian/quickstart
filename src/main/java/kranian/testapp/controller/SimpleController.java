@@ -87,6 +87,17 @@ public class SimpleController {
 
         return map;
     }
+    @RequestMapping("/sleep5000")
+    @ResponseBody
+    @Description("Call that takes 7 seconds to complete")
+    public Map<String, Object> sleep5000() throws InterruptedException {
+        Thread.sleep(5000);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", "5000s ok");
+
+        return map;
+    }
 
     @RequestMapping("/sessionCounter")
     @ResponseBody

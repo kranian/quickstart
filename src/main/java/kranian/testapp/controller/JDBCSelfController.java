@@ -11,12 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.IntStream;
+import java.util.*;
 
 /**
  * @author koo.taejin
@@ -30,7 +29,7 @@ public class JDBCSelfController {
     @RequestMapping("/simpleDriver")
     @ResponseBody
     @Description("Call that takes DriverManager to complete")
-    public Map<String, Object> simpleDataSource() throws InterruptedException {
+    public Map<String, Object> simpleDriver() throws InterruptedException {
         Map<String,Object> result = new TreeMap<>();
         try {
             Class.forName("org.hsqldb.jdbcDriver");
@@ -72,15 +71,48 @@ public class JDBCSelfController {
 
         Map<String, Object> map = new TreeMap<>();
         User user = new User();
-        IntStream.range(0,20)
-                 .mapToObj(i -> Integer.valueOf(i))
-                 .forEach(p->{
-                     user.setName(StringUtil.getRanAlphabet(15));
-                     jdbcTemplate.update("INSERT INTO randomTable (name) VALUES (:name)", new BeanPropertySqlParameterSource(user));
-                     map.put(p.toString(), user.getName());
-                 });
+        for(int iter=0;iter < 20; iter++ ){
+            user.setName(StringUtil.getRanAlphabet(15));
+            jdbcTemplate.update("INSERT INTO randomTable (name) VALUES (:name)", new BeanPropertySqlParameterSource(user));
+            map.put(String.valueOf(iter), user.getName());
+        }
+
 
         return map;
+    }
+
+    @RequestMapping("/simpleCubrid")
+    @ResponseBody
+    @Description("Call that takes Cubrid Connection Pool Get  to complete")
+    public Map<String, Object> simpleDataSource() throws InterruptedException {
+        Map<String,Object> result = new TreeMap<>();
+        try {
+            Context initCtx = new InitialContext();
+            DataSource ds = (DataSource) initCtx.lookup("java:jboss/datasources/CubridDS");
+
+            try(Connection conn = ds.getConnection();
+                PreparedStatement pstat= conn.prepareStatement("SELECT code,gender FROM athlete");
+                ResultSet rs=pstat.executeQuery()
+                ){
+                    int index=0;
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int numberofColumn = rsmd.getColumnCount();
+                    while(rs.next()) {
+                        List<String> row =new ArrayList<>();
+                        for( int iter=1; iter<=numberofColumn; iter++) {
+                            row.add(rs.getString((iter)));
+                        }
+                        result.put(String.valueOf(index++), row);
+                    }
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private static final class UserMapper implements RowMapper<String> {
