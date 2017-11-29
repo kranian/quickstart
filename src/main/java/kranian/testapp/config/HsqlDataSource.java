@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 @Profile("hsql")
 @Configuration
+
 public class HsqlDataSource {
 
     //jdbc:hsqldb:mem:testdb
@@ -24,13 +25,12 @@ public class HsqlDataSource {
         // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
 
 //        BasicDataSource ds = new BasicDataSource();
-//        ds.setDriverClassName("org.hsqldb.jdbcDriverr");
-//        ds.setUrl("jdbc\\:hsqldb\\:mem\\:spring-playground");
+//        ds.setDriverClassName("org.hsqldb.jdbcDriver");
+//        ds.setUrl("jdbc:hsqldb:mem:embdDataSource");
 //        ds.setUsername("sa");
 //        ds.setPassword("");
 //        ds.setInitialSize(5);
 //        ds.setMaxActive(10);
-//
 //        return ds;
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 

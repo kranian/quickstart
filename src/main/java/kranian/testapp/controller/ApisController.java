@@ -1,5 +1,7 @@
 package kranian.testapp.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -12,9 +14,12 @@ import java.util.TreeSet;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import com.ibatis.common.jdbc.ScriptRunner;
+import com.ibatis.common.resources.Resources;
 import kranian.testapp.util.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +33,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 /**
  * @author koo.taejin
  */
-
+@ComponentScan({ "kranian.testapp" })
 @Controller(value = "apisController")
 public class ApisController {
 
@@ -49,6 +54,14 @@ public class ApisController {
     @Bean
     public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
 
+      try {
+            ScriptRunner sr = new ScriptRunner(dataSource.getConnection(), true, true);
+            sr.runScript(Resources.getResourceAsReader("db/sql/create-db.sql"));
+            sr.runScript(Resources.getResourceAsReader("db/sql/insert-data.sql"));
+            System.out.println( "==========================================> +" + dataSource);
+        }catch (SQLException |IOException e){
+            e.printStackTrace();
+        }
         return new NamedParameterJdbcTemplate(dataSource);
     }
 

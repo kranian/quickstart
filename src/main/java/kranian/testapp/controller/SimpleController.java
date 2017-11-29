@@ -2,6 +2,7 @@ package kranian.testapp.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import kranian.testapp.listener.ElevisorSessionListener;
 import kranian.testapp.util.Description;
@@ -87,14 +88,28 @@ public class SimpleController {
 
         return map;
     }
+    @RequestMapping("/sleepRandom")
+    @ResponseBody
+    @Description("Call that takes random seconds to complete")
+    public Map<String, Object> sleepRandom() throws InterruptedException {
+        Random random = new Random();
+        int min = 100;
+        int max = random.nextInt(1 * 11 * 1000);
+        int result = Math.max(min,max);
+        Thread.sleep(result);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", result + "ms ok");
+
+        return map;
+    }
     @RequestMapping("/sleep5000")
     @ResponseBody
-    @Description("Call that takes 7 seconds to complete")
-    public Map<String, Object> sleep5000() throws InterruptedException {
-        Thread.sleep(5000);
+    @Description("Call that takes 5 min to complete")
+    public Map<String, Object> sleep5min() throws InterruptedException {
+        Thread.sleep(5 * 60 * 1000 );
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("message", "5000s ok");
+        map.put("message", "5 min ok");
 
         return map;
     }

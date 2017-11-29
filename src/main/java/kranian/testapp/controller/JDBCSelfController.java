@@ -80,6 +80,40 @@ public class JDBCSelfController {
 
         return map;
     }
+    @RequestMapping("/simpleHsqlDS")
+    @ResponseBody
+    @Description("Call that takes Cubrid Connection Pool Get  to complete")
+    public Map<String, Object> simpleHsqlDS() throws InterruptedException {
+        Map<String,Object> result = new TreeMap<>();
+        try {
+            Context initCtx = new InitialContext();
+            DataSource ds = (DataSource) initCtx.lookup("dataSource");
+
+            try(Connection conn = ds.getConnection();
+                PreparedStatement pstat= conn.prepareStatement("SELECT code,gender FROM athlete");
+                ResultSet rs=pstat.executeQuery()
+            ){
+                int index=0;
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int numberofColumn = rsmd.getColumnCount();
+                while(rs.next()) {
+                    List<String> row =new ArrayList<>();
+                    for( int iter=1; iter<=numberofColumn; iter++) {
+                        row.add(rs.getString((iter)));
+                    }
+                    result.put(String.valueOf(index++), row);
+                }
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     @RequestMapping("/simpleCubrid")
     @ResponseBody
