@@ -88,13 +88,27 @@ public class SimpleController {
 
         return map;
     }
-    @RequestMapping("/sleepRandom")
+    @RequestMapping("/sleepRandom5sec")
     @ResponseBody
     @Description("Call that takes random seconds to complete")
     public Map<String, Object> sleepRandom() throws InterruptedException {
         Random random = new Random();
-        int min = 100;
-        int max = random.nextInt(1 * 11 * 1000);
+        int min = 3;
+        int max = random.nextInt(1 * 5 * 1000);
+        int result = Math.max(min,max);
+        Thread.sleep(result);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", result + "ms ok");
+
+        return map;
+    }
+    @RequestMapping("/sleepRandom10sec")
+    @ResponseBody
+    @Description("Call that takes random seconds to complete")
+    public Map<String, Object> sleepRandom10sec() throws InterruptedException {
+        Random random = new Random();
+        int min = 3;
+        int max = random.nextInt(1*10*1000);
         int result = Math.max(min,max);
         Thread.sleep(result);
         Map<String, Object> map = new HashMap<String, Object>();

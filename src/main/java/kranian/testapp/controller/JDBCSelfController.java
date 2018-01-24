@@ -149,6 +149,33 @@ public class JDBCSelfController {
         return result;
     }
 
+    @RequestMapping("/simpleAltibase")
+    @ResponseBody
+    @Description("Call that takes simpleAltibase JDBC Direct Get  to complete")
+    public Map<String, Object> simpleAltibase() throws InterruptedException {
+        Map<String,Object> result = new TreeMap<>();
+        try {
+            Class.forName("Altibase.jdbc.driver.AltibaseDriver");
+            try(Connection conn = DriverManager.getConnection("jdbc:Altibase://192.168.0.154:20300/mydb","sys","manager");
+                PreparedStatement pstat= conn.prepareStatement("SELECT * FROM tb_user");
+                ResultSet rs=pstat.executeQuery()
+            ){
+                System.out.println(pstat.getClass().getName());
+                int index=0;
+                while(rs.next()){
+                    result.put(String.valueOf(index++),rs.getString("message"));
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
     private static final class UserMapper implements RowMapper<String> {
 
         public String mapRow(ResultSet rs, int rowNum) throws SQLException {
